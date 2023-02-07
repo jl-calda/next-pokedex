@@ -1,10 +1,8 @@
-import './globals.css'
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import "../styles/globals.css";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       {/*
@@ -12,7 +10,13 @@ export default function RootLayout({
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+        <Footer />
+      </body>
     </html>
-  )
-}
+  );
+};
+
+export default Layout;
