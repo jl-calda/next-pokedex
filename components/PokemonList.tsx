@@ -3,7 +3,7 @@
 import useSWR from "swr";
 import { useState } from "react";
 
-import PokePreview2 from "./PokePreview_2";
+import PokePreview2 from "./PokePreview";
 import { getPokemonData, getPokemonList } from "../lib/pokemon";
 
 const PokemonList = () => {

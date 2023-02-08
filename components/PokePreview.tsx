@@ -1,17 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { getPokemonData } from "../lib/pokemon";
+import { getPokemonData, PokemonData } from "../lib/pokemon";
 
-const PokePreview = async ({ pokeId }: { pokeId: number }) => {
-  const pokemon = await getPokemonData(pokeId);
+const PokePreview = ({ pokemon }: PokemonData) => {
   return (
-    <Link href={`/${pokeId}`}>
-      <div className="border-2 rounded-2xl ">
+    <Link href={`/${pokemon.id}`}>
+      <div className="border-2 rounded-2xl h-[300px]">
         <div className="flex">
           <Image
-            src={pokemon.sprites.shiny}
-            height={80}
-            width={80}
+            src={pokemon.sprites.official_artwork}
+            height={150}
+            width={150}
             alt={pokemon.name}
           />
           <h3>{pokemon.name}</h3>

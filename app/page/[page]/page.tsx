@@ -1,19 +1,14 @@
 import PokePreview from "../../../components/PokePreview";
+import PokePreview2 from "../../../components/PokePreview";
 import { getPokemonList } from "../../../lib/pokemon";
 
-const makeArray = (key: number, multiple: number) => {
-  const array = [...Array(multiple).keys()].map(
-    (i) => i + (key - 1) * multiple + 1
-  );
-  return array;
-};
-
-const PokemonsPage = async ({ params: page }: any) => {
-  const pokeList = makeArray(page, 20);
-
-  //   const pokemons = await getPokemonList(page)
+const PokemonsPage = async ({ params: { page } }: any) => {
+  const pokemonsData = getPokemonList(page);
+  const pokemons = await pokemonsData;
   return (
-    <>{pokeList && pokeList.map((pokeId) => <PokePreview id={pokeId} />)}</>
+    <div className="grid grid-cols-4">
+      {pokemons && pokemons.map((pokemon) => <PokePreview pokemon={pokemon} />)}
+    </div>
   );
 };
 
