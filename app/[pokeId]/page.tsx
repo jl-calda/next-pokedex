@@ -1,8 +1,14 @@
-import { getPokemonData } from "../../lib/pokemon";
+"use client";
 
-const PokePage = async (props: any) => {
-  const pokemon = await getPokemonData(props.params.pokeId);
-  return <div>{pokemon.name}</div>;
+import { getPokemonData } from "../../lib/pokemon";
+import useSWR from "swr";
+
+const PokePage = (props: any) => {
+  const { data, error, isLoading } = useSWR(
+    props.params.pokeId,
+    getPokemonData
+  );
+  return <div>{data && data.name}</div>;
 };
 
 export default PokePage;

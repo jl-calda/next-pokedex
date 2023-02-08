@@ -38,7 +38,22 @@ export const getPokemonData = async (pokeId: number) => {
 
 export const getPokemonList = async (pokemonToShow: number) => {
   const pokeList = [...Array(pokemonToShow).keys()].map((i) => i + 1);
-  const pokemons = pokeList.map((pokeId) => getPokemonData(pokeId));
+  const pokemons = pokeList.map(async (pokeId) => await getPokemonData(pokeId));
   const data = await Promise.all(pokemons);
   return data;
+};
+
+export const getPokemonData2 = async (pokeId: number) => {
+  const pokemonData = await getPokemon(pokeId);
+  const pokemon: PokemonData = {
+    id: pokemonData.id,
+    name: pokemonData.name,
+    height: pokemonData.height,
+    weight: pokemonData.weight,
+    sprites: {
+      official_artwork: getOfficialArtwork(pokeId),
+      shiny: getFrontShiny(pokeId),
+    },
+  };
+  return pokemon;
 };
