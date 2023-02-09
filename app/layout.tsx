@@ -10,7 +10,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body>
+      <body className="max-w-5xl mx-auto">
         <Header />
         {children}
         <Footer />

@@ -1,11 +1,5 @@
-import PokemonList from "../components/PokemonList";
+import { redirect } from "next/navigation";
 
-const Homepage = () => {
-  return (
-    <div>
-      <PokemonList />
-    </div>
-  );
-};
+const Homepage = () => {};
 
 export default Homepage;

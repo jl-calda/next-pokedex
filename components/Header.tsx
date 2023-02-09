@@ -1,9 +1,12 @@
 import SearchBar from "./SearchBar";
+import Link from "next/link";
 
 const Header = () => {
   return (
     <div>
-      Header
+      <Link href="/">
+        <h1>Header</h1>
+      </Link>
       <SearchBar />
     </div>
   );
