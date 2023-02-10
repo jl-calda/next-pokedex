@@ -1,5 +1,5 @@
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import Footer from "./_Footer";
+import Header from "./_Header";
 import "../styles/globals.css";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -10,7 +10,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
-      <body className="max-w-5xl mx-auto">
+      <body className="max-w-5xl mx-auto flex flex-col items-center">
         <Header />
         {children}
         <Footer />

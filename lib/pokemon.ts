@@ -1,3 +1,6 @@
+import { prominent } from "color.js";
+import tinycolor from "tinycolor2";
+
 export const getOfficialArtwork = (pokeId: number) =>
   `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokeId}.png`;
 
@@ -26,8 +29,8 @@ export const getPokemonData = async (pokeId: number) => {
   const pokemon: PokemonData = {
     id: pokemonData.id,
     name: pokemonData.name,
-    height: pokemonData.height,
-    weight: pokemonData.weight,
+    height: pokemonData.height / 10,
+    weight: pokemonData.weight / 10,
     sprites: {
       official_artwork: getOfficialArtwork(pokeId),
       shiny: getFrontShiny(pokeId),
@@ -45,24 +48,9 @@ export const getAllPokemons = async () => {
 };
 
 export const getPokemonList = async (page) => {
-  const pokeList = [...Array(20).keys()].map((i) => i + (page - 1) * 20 + 1);
+  const pokeList = [...Array(25).keys()].map((i) => i + (page - 1) * 25 + 1);
   console.log(pokeList);
   const pokemons = pokeList.map(async (pokeId) => await getPokemonData(pokeId));
   const data = await Promise.all(pokemons);
   return data;
-};
-
-export const getPokemonData2 = async (pokeId: number) => {
-  const pokemonData = await getPokemon(pokeId);
-  const pokemon: PokemonData = {
-    id: pokemonData.id,
-    name: pokemonData.name,
-    height: pokemonData.height,
-    weight: pokemonData.weight,
-    sprites: {
-      official_artwork: getOfficialArtwork(pokeId),
-      shiny: getFrontShiny(pokeId),
-    },
-  };
-  return pokemon;
 };

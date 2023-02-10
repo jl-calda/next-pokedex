@@ -1,9 +1,9 @@
-import SearchBar from "./SearchBar";
+import SearchBar from "../components/SearchBar";
 import Link from "next/link";
 
 const Header = () => {
   return (
-    <div>
+    <div className="w-full px-16">
       <Link href="/">
         <h1>Header</h1>
       </Link>
