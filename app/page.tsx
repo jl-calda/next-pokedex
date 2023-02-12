@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation";
-
-const Homepage = () => {};
+const Homepage = async () => {
+  return <div>Homepage</div>;
+};
 
 export default Homepage;

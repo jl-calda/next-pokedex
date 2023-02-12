@@ -7,7 +7,12 @@ module.exports = {
   ],
   darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        "press-p2": ["Press Start 2P", "cursive"],
+      },
+    },
   },
   plugins: [],
+  mode: "jit",
 };
