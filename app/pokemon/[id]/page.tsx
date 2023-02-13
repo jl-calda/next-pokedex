@@ -26,7 +26,7 @@ const PokePage = ({ params: { id } }: { params: { id: number } }) => {
         <p>{`<`}</p>
       </Link>
       {/* @ts-expect-error */}
-      <PokemonFull url={`https://pokeapi.co/api/v2/pokemon/${id}`} />
+      <PokemonFull id={id} />
       <Link href={`/pokemon/${getPageUp(id)}`} className={arrowStyle}>
         <p>{`>`}</p>
       </Link>

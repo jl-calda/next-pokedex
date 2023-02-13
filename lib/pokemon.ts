@@ -18,46 +18,6 @@ type Types =
   | "steel"
   | "fairy";
 
-import bugIcon from "../public/assets/icon-types/bug.svg";
-import darkIcon from "../public/assets/icon-types/dark.svg";
-import fireIcon from "../public/assets/icon-types/fire.svg";
-import dragonIcon from "../public/assets/icon-types/dragon.svg";
-import electricIcon from "../public/assets/icon-types/electric.svg";
-import fairyIcon from "../public/assets/icon-types/fairy.svg";
-import fightingIcon from "../public/assets/icon-types/fighting.svg";
-import flyingIcon from "../public/assets/icon-types/flying.svg";
-import ghostIcon from "../public/assets/icon-types/ghost.svg";
-import grassIcon from "../public/assets/icon-types/grass.svg";
-import groundIcon from "../public/assets/icon-types/ground.svg";
-import iceIcon from "../public/assets/icon-types/ice.svg";
-import normalIcon from "../public/assets/icon-types/normal.svg";
-import poisonIcon from "../public/assets/icon-types/poison.svg";
-import psychicIcon from "../public/assets/icon-types/psychic.svg";
-import rockIcon from "../public/assets/icon-types/rock.svg";
-import steelIcon from "../public/assets/icon-types/steel.svg";
-import waterIcon from "../public/assets/icon-types/water.svg";
-
-// export const typeIcons = {
-//   normal: normalIcon,
-//   fire: fireIcon,
-//   water: waterIcon,
-//   electric: electricIcon,
-//   grass: grassIcon,
-//   ice: iceIcon,
-//   fighting: fightingIcon,
-//   poison: poisonIcon,
-//   ground: groundIcon,
-//   flying: flyingIcon,
-//   psychic: psychicIcon,
-//   bug: bugIcon,
-//   rock: rockIcon,
-//   ghost: ghostIcon,
-//   dragon: dragonIcon,
-//   dark: darkIcon,
-//   steel: steelIcon,
-//   fairy: fairyIcon,
-// };
-
 export const typeIcons = {
   normal: "/assets/icon-types/bug.svg",
   fire: "/assets/icon-types/fire.svg",
@@ -132,8 +92,8 @@ export const fetchPokemonData = async () => {
   };
 };
 
-export const fetchOnePokemon = async (url: string) => {
-  const res = await fetch(url);
+export const fetchOnePokemon = async (id: number) => {
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
   const data = await res.json();
   // const types = await Promise.all(
   //   data.types.map((type: any) => type.type.name)
@@ -162,6 +122,18 @@ export const fetchOnePokemon = async (url: string) => {
     })
   );
 
+  const textRes = await fetch(
+    `https://pokeapi.co/api/v2/pokemon-species/${id}`
+  );
+  const textData = await textRes.json();
+
+  const texts = await Promise.all(
+    textData["flavor_text_entries"]
+      .filter((text: any) => text.language.name === "en")
+      .slice(0, 1)
+      .map((text: any) => text.flavor_text)
+  );
+
   const officialArtWork = await data.sprites.other["official-artwork"]
     .front_default;
 
@@ -174,8 +146,10 @@ export const fetchOnePokemon = async (url: string) => {
     height: data.height,
     weight: data.weight,
     types: types,
-    url: url,
     stats: stats,
+    texts: texts
+      ? texts[0]?.replace(/(\n)/gm, " ").replace(/(\f)/gm, " ")
+      : "No description",
     images: {
       front: officialArtWork,
       shiny: officialArtWorkShiny,
@@ -187,8 +161,7 @@ export const fetchPokemonList = async (page: number) => {
   const pokeList = [...Array(25).keys()].map((i) => i + (page - 1) * 25 + 1);
   console.log(pokeList);
   const pokemons = pokeList.map(
-    async (pokeId) =>
-      await fetchOnePokemon(`https://pokeapi.co/api/v2/pokemon/${pokeId}`)
+    async (pokeId) => await fetchOnePokemon(pokeId)
   );
   const data = await Promise.all(pokemons);
   return data;

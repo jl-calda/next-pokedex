@@ -5,8 +5,8 @@ import crypto from "crypto";
 import Stat from "./Stat";
 import Type from "./Type";
 
-const PokemonFull = async ({ url }: { url: string }) => {
-  const pokemon = await fetchOnePokemon(url);
+const PokemonFull = async ({ id }: { id: number }) => {
+  const pokemon = await fetchOnePokemon(id);
 
   return (
     <div className="w-full px-8 grid md:grid-cols-2">
@@ -20,6 +20,7 @@ const PokemonFull = async ({ url }: { url: string }) => {
         <h1 className="font-press-p2 text-3xl uppercase font-bold">
           {pokemon.name}
         </h1>
+        {console.log(pokemon)}
         <div className="flex space-x-2">
           {pokemon.types &&
             pokemon.types.map((type) => (

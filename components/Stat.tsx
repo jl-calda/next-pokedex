@@ -38,7 +38,7 @@ const Stat = ({ name, value }: { name: string; value: number }) => {
 
       <div className="w-full h-[20px] border-2 border-slate-800 flex rounded-full bg-red-50">
         <div
-          className={`w-[${value}%] bg-red-400 h-full rounded-full`}
+          className={`w-[${value}%] bg-red-400 h-full rounded-full border-r-2 border-slate-800`}
           style={{ width: `${value / 2}%` }}
         ></div>
       </div>

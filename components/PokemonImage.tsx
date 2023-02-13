@@ -66,7 +66,7 @@ const PokemonImage = ({ front, shiny, name }: PageProps) => {
 
   return (
     <div
-      className="bg-gradient-tr from-amber-300 to-yellow-700 m-1 rounded-md shadow-md"
+      className="flex items-center justify-center bg-gradient-tr from-amber-300 to-yellow-700 m-1 rounded-md shadow-md"
       style={{
         background: `linear-gradient(45deg, ${vibrantColor}, ${vibrantColor2})`,
       }}

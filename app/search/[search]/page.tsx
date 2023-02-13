@@ -18,7 +18,11 @@ const SearchPage = async ({
       {filteredData ? (
         filteredData.map((pokemon) => (
           // @ts-expect-error
-          <PokemonPreview url={pokemon.url} key={crypto.randomUUID()} />
+
+          <PokemonPreview
+            id={Number(pokemon.url.charAt(34))}
+            key={crypto.randomUUID()}
+          />
         ))
       ) : (
         <div>No search</div>

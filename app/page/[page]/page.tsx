@@ -4,7 +4,6 @@ import crypto from "crypto";
 import Link from "next/link";
 
 const PokemonsPage = async ({ params: { page } }: any) => {
-  const url = "https://pokeapi.co/api/v2/pokemon/";
   const array = makeArray(page, 24);
   const getPageDown = (page: number) => {
     if (page == 1) {
@@ -30,7 +29,7 @@ const PokemonsPage = async ({ params: { page } }: any) => {
         {array.map((id) => (
           <div>
             {/* @ts-expect-error */}
-            <PokemonPreview key={crypto.randomUUID()} url={`${url}${id}`} />
+            <PokemonPreview key={crypto.randomUUID()} id={id} />
           </div>
         ))}
       </div>
