@@ -2,8 +2,6 @@ import Image from "next/image";
 import { fetchOnePokemon } from "../lib/pokemon";
 import crypto from "crypto";
 
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 import Stat from "./Stat";
 import Type from "./Type";
 

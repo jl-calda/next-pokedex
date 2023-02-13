@@ -11,13 +11,13 @@ const TypePreview = ({
 }) => {
   return (
     <div
-      className="flex items-center px-1 py-1 rounded-full space-x-2"
+      className="flex items-center p-[2px] rounded-full"
       style={{ backgroundColor: `${color}` }}
     >
       <Image
         src={icon}
-        height={30}
-        width={30}
+        height={15}
+        width={15}
         alt={type}
         className={`${type} icon`}
       />
