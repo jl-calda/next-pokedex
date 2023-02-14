@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { colord } from "colord";
 import { FastAverageColor } from "fast-average-color";
 
 interface PageProps {
@@ -13,10 +12,8 @@ interface PageProps {
 
 const PokemonImage = ({ front, shiny, name }: PageProps) => {
   const [src, setSrc] = useState(front);
-  const [isActive, setActive] = useState(false);
   const [vibrantColor, setVibrantColor] = useState<any>(undefined);
   const [vibrantColor2, setVibrantColor2] = useState<any>(undefined);
-  const [deboucedVal, setDebouncedVal] = useState<boolean>(false);
 
   useEffect(() => {
     const getPalette = async () => {

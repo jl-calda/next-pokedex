@@ -1,7 +1,7 @@
-import PokemonPreview from "../../../components/PokemonPreview";
 import { makeArray } from "../../../lib/pokemon";
 import crypto from "crypto";
 import Link from "next/link";
+import Card from "../../../components/Card";
 
 const PokemonsPage = async ({ params: { page } }: any) => {
   const array = makeArray(page, 24);
@@ -26,10 +26,10 @@ const PokemonsPage = async ({ params: { page } }: any) => {
         <div className="text-3xl font-bold px-3 py-2">{`<`}</div>
       </Link>
 
-      <div className="grid gap-x-2 gap-y-2  grid-cols-2 md:grid-cols-4">
+      <div className="grid gap-x-2 gap-y-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {array.map((id) => (
           // @ts-expect-error
-          <PokemonPreview key={crypto.randomUUID()} id={id} />
+          <Card key={crypto.randomUUID()} id={id} />
         ))}
       </div>
       <Link href={`/page/${getPageUp(page)}`}>

@@ -4,17 +4,27 @@ import crypto from "crypto";
 
 import Stat from "./Stat";
 import Type from "./Type";
+import { FastAverageColor } from "fast-average-color";
+import PokemonImage from "./PokemonImage";
+import { getColor } from "../lib/getColor";
 
-const PokemonFull = async ({ id }: { id: number }) => {
+const CardFull = async ({ id }: { id: number }) => {
   const pokemon = await fetchOnePokemon(id);
 
+  const colorFront = await getColor(pokemon.images.front);
+  const colorShiny = await getColor(pokemon.images.shiny);
+
   return (
-    <div className="w-full px-8 grid md:grid-cols-2">
-      <Image
-        src={pokemon.images.front}
-        height={250}
-        width={250}
-        alt={pokemon.name}
+    <div
+      className="w-full px-8 grid md:grid-cols-2"
+      style={{
+        background: `linear-gradient(45deg, ${colorFront}, ${colorShiny})`,
+      }}
+    >
+      <PokemonImage
+        front={pokemon.images.front}
+        shiny={pokemon.images.shiny}
+        name={pokemon.name}
       />
       <div className="flex flex-col space-y-2 px-4 py-2 justify-center">
         <h1 className="font-press-p2 text-3xl uppercase font-bold">
@@ -49,4 +59,4 @@ const PokemonFull = async ({ id }: { id: number }) => {
   );
 };
 
-export default PokemonFull;
+export default CardFull;

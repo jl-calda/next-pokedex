@@ -1,3 +1,6 @@
+import { FastAverageColor } from "fast-average-color";
+const fac = new FastAverageColor();
+
 type Types =
   | "normal"
   | "fire"

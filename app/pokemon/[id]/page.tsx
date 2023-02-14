@@ -1,4 +1,4 @@
-import PokemonFull from "../../../components/PokemonFull";
+import CardFull from "../../../components/CardFull";
 import Link from "next/link";
 
 const PokePage = ({ params: { id } }: { params: { id: number } }) => {
@@ -26,7 +26,7 @@ const PokePage = ({ params: { id } }: { params: { id: number } }) => {
         <p>{`<`}</p>
       </Link>
       {/* @ts-expect-error */}
-      <PokemonFull id={id} />
+      <CardFull id={id} />
       <Link href={`/pokemon/${getPageUp(id)}`} className={arrowStyle}>
         <p>{`>`}</p>
       </Link>
