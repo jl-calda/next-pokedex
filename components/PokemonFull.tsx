@@ -20,7 +20,7 @@ const PokemonFull = async ({ id }: { id: number }) => {
         <h1 className="font-press-p2 text-3xl uppercase font-bold">
           {pokemon.name}
         </h1>
-        {console.log(pokemon)}
+
         <div className="flex space-x-2">
           {pokemon.types &&
             pokemon.types.map((type) => (

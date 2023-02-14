@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useDebounce } from "react-use";
 import Image from "next/image";
-import tinycolor from "tinycolor2";
-import { prominent } from "color.js";
+import { colord } from "colord";
+import { FastAverageColor } from "fast-average-color";
 
 interface PageProps {
   front: string;
@@ -21,46 +20,32 @@ const PokemonImage = ({ front, shiny, name }: PageProps) => {
 
   useEffect(() => {
     const getPalette = async () => {
-      const promColor = await prominent(front, {
-        amount: 3,
-        group: 30,
-        format: "hex",
+      const fac = new FastAverageColor();
+      const colorPromiseFront = await fac.getColorAsync(front, {
+        mode: "precision",
+        ignoredColor: [255, 255, 255],
+        algorithm: "dominant",
       });
-      const promColor2 = await prominent(shiny, {
-        amount: 5,
-        group: 50,
-        format: "hex",
+      const colorFront = colorPromiseFront.rgba;
+
+      const colorPromiseShiny = await fac.getColorAsync(shiny, {
+        mode: "precision",
+        ignoredColor: [0, 0, 0],
+        algorithm: "dominant",
       });
+      const colorShiny = colorPromiseShiny.rgba;
 
-      let bgColor: any = tinycolor(promColor[1]).isLight()
-        ? promColor[2]
-        : promColor[1];
-      let bgColor2: any = tinycolor(promColor2[1]).isDark()
-        ? promColor2[2]
-        : promColor2[1];
-
-      setVibrantColor(bgColor);
-      setVibrantColor2(bgColor2);
+      setVibrantColor(colorFront);
+      setVibrantColor2(colorShiny);
     };
     getPalette();
   }, []);
 
-  useDebounce(
-    () => {
-      setDebouncedVal(isActive);
-    },
-    1500,
-    [isActive]
-  );
-
   const handleMouseEnter = () => {
     setSrc(shiny);
-    setActive(!isActive);
   };
 
   const handleMouseLeave = () => {
-    setDebouncedVal(!isActive);
-    setActive(!isActive);
     setSrc(front);
   };
 

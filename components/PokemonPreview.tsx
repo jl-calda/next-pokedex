@@ -11,7 +11,7 @@ const PokemonPreview = async ({ id }: { id: number }) => {
 
   return (
     <Link href={`/pokemon/${pokemon.id}`}>
-      <div className="min-w-[200px] min-h-[350px] bg-gradient-to-br from-yellow-400 to-amber-700 flex">
+      <div className="w-[220px] min-h-[350px] bg-gradient-to-br from-yellow-400 to-amber-700 flex">
         <div className="p-2 min-h-full min-w-full">
           <div className="flex flex-col border-2 min-h-full border-slate-800 p-[1px] rounded-md bg-white">
             {/* row 1 */}

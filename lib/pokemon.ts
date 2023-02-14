@@ -82,14 +82,10 @@ type Colours = {
 };
 
 export const fetchPokemonData = async () => {
-  const res = await fetch(
-    `https://pokeapi.co/api/v2/pokemon?limit=1008&offset=0`
-  );
-  const data = await res.json();
-  return {
-    totalPokemons: data.count,
-    pokemons: data.results,
-  };
+  const array = makeArray(1, 1008);
+  const pokemons = array.map(async (pokeId) => await fetchOnePokemon(pokeId));
+  const data = await Promise.all(pokemons);
+  return data;
 };
 
 export const fetchOnePokemon = async (id: number) => {
@@ -147,9 +143,9 @@ export const fetchOnePokemon = async (id: number) => {
     weight: data.weight,
     types: types,
     stats: stats,
-    texts: texts
+    texts: texts[0]
       ? texts[0]?.replace(/(\n)/gm, " ").replace(/(\f)/gm, " ")
-      : "No description",
+      : "This pokemon is so rare that it hasn't been well documented aside from few photos.",
     images: {
       front: officialArtWork,
       shiny: officialArtWorkShiny,

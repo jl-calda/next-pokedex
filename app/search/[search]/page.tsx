@@ -1,32 +1,26 @@
+"use client";
+
 import { fetchPokemonData } from "../../../lib/pokemon";
 import crypto from "crypto";
+import useSWR from "swr";
 import PokemonPreview from "../../../components/PokemonPreview";
 
-const SearchPage = async ({
-  params: { search },
-}: {
-  params: { search: string };
-}) => {
-  const pokemonData = await fetchPokemonData();
-  const filteredData = await Promise.all(
-    pokemonData.pokemons.filter((pokemon: { name: string; url: string }) =>
-      pokemon.name.includes(search.toLowerCase())
-    )
-  );
+const SearchPage = ({ params: { search } }: { params: { search: string } }) => {
+  const { data, error, isLoading } = useSWR(fetchPokemonData);
+
   return (
     <>
-      {filteredData ? (
-        filteredData.map((pokemon) => (
-          // @ts-expect-error
-
-          <PokemonPreview
-            id={Number(pokemon.url.charAt(34))}
-            key={crypto.randomUUID()}
-          />
-        ))
+      {!isLoading ? console.log(data) : <div>Loading...</div>}
+      {/* {!isLoading ? (
+        data
+          .filter((pokemon) => pokemon.name.includes(search.toLowerCase()))
+          .map((pokemon) => (
+            // @ts-expect-error
+            <PokemonPreview id={pokemon.id} key={crypto.randomUUID()} />
+          ))
       ) : (
         <div>No search</div>
-      )}
+      )} */}
     </>
   );
 };

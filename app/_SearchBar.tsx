@@ -1,34 +1,40 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { fetchPokemonData } from "../lib/pokemon";
 
 const SearchBar = () => {
   const [search, setSearch] = useState("");
+  const [pokemons, setPokemons] = useState([]);
   const router = useRouter();
+
+  useEffect(() => {
+    const pokeData = async () => await fetchPokemonData();
+    return () => {
+      setPokemons(pokeData);
+    };
+  }, []);
 
   const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setSearch(search);
     router.push(`/search/${search}`);
     setSearch("");
   };
 
-  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    if (e.target.value) {
-      console.log("handleChange", e.target.value);
-      setSearch(e.target.value);
-      // router.push(`/search/${search}`);
-    }
+    setSearch(e.target.value);
   };
 
   return (
     <form className="" onSubmit={handleSearch}>
       <input
         type="text"
-        value={search}
         placeholder="Search pokemon..."
-        onChange={handleChange}
+        value={search}
+        onChange={handleOnChange}
       />
       <button type="submit" className="hidden"></button>
     </form>
