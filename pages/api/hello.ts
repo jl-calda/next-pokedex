@@ -1,11 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import pokemonData from "../../pokemon.json"
+import pokemonData from "../../pokemon.json";
 
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from "next";
 
 type Data = {
-  name: string
-}
+  name: string;
+};
 export default (req: NextApiRequest, res: NextApiResponse): void => {
   const { name } = req.query;
 
@@ -16,18 +16,14 @@ export default (req: NextApiRequest, res: NextApiResponse): void => {
   }
 
   const findPokemon = pokemonData.find(
-    (pokemon) => pokemon.name.english === req.query.name,
+    (pokemon) => pokemon.name.english === req.query.name
   );
 
   res.setHeader("Content-Type", "application/json");
 
   if (!findPokemon) {
-    return res
-      .status(404)
-      .send(`Pokemon ${name} not found`);
+    return res.status(404).send(`Pokemon ${name} not found`);
   }
 
-  return res
-    .status(200)
-    .send(JSON.stringify(formatPokemon(findPokemon)));
+  return res.status(200).send(JSON.stringify(formatPokemon(findPokemon)));
 };
