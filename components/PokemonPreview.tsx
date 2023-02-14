@@ -12,7 +12,7 @@ const PokemonPreview = async ({ id }: { id: number }) => {
   return (
     <Link href={`/pokemon/${pokemon.id}`}>
       <div className="min-w-[200px] min-h-[350px] bg-gradient-to-br from-yellow-400 to-amber-700 flex">
-        <div className="p-2 min-h-full">
+        <div className="p-2 min-h-full min-w-full">
           <div className="flex flex-col border-2 min-h-full border-slate-800 p-[1px] rounded-md bg-white">
             {/* row 1 */}
             <div className="flex items-center justify-between w-full px-2 pt-1 mb-2">
@@ -47,8 +47,8 @@ const PokemonPreview = async ({ id }: { id: number }) => {
 
             <div className="flex flex-col justify-end mb-2 px-2">
               <div>
-                <p className="uppercase text-center text-xs tracking-tight font-bold ml-2">
-                  Stats
+                <p className="uppercase text-slate-600 text-center text-xs tracking-widest font-bold ml-2">
+                  Basic Stats
                 </p>
                 {pokemon.stats.slice(0, 3).map((stat) => (
                   <StatPreview
