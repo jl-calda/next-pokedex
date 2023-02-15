@@ -7,7 +7,7 @@
   bottom: 0;
   top: 0;
   background-repeat: no-repeat;
-  opacity: 0.5;
+  opacity: 0.8;
   mix-blend-mode: color-dodge;
   transition: all 0.33s ease;
 }
@@ -18,16 +18,16 @@
   background-size: cover;
   background-blend-mode: overlay;
   z-index: 2;
-  filter: brightness(1) contrast(1);
+  filter: brightness(2) contrast(2);
   transition: all 0.33s ease;
   mix-blend-mode: color-dodge;
   opacity: 0.75;
 }
 
-.card:hover:after {
+/* .card:hover:after {
   filter: brightness(1) contrast(1);
   opacity: 1;
-}
+} */
 
 /* 
 

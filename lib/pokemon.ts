@@ -1,4 +1,5 @@
 import { FastAverageColor } from "fast-average-color";
+import { getColor } from "./getColor";
 const fac = new FastAverageColor();
 
 type Types =
@@ -136,8 +137,11 @@ export const fetchOnePokemon = async (id: number) => {
   const officialArtWork = await data.sprites.other["official-artwork"]
     .front_default;
 
+  const colorOfficial = await getColor(officialArtWork);
+
   const officialArtWorkShiny = await data.sprites.other["official-artwork"]
     .front_shiny;
+  const colorShiny = await getColor(officialArtWorkShiny);
 
   return {
     id: data.id,
@@ -152,6 +156,10 @@ export const fetchOnePokemon = async (id: number) => {
     images: {
       front: officialArtWork,
       shiny: officialArtWorkShiny,
+    },
+    colors: {
+      front: colorOfficial,
+      shiny: colorShiny,
     },
   };
 };
