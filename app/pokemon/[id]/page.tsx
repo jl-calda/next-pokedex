@@ -1,5 +1,7 @@
 import CardFull from "../../../components/CardFull";
 import Link from "next/link";
+import ColoredDiv from "../../../components/ColoredBg";
+import Card from "../../../components/Card";
 
 const PokePage = ({ params: { id } }: { params: { id: number } }) => {
   const getPageDown = (id: number) => {
@@ -16,22 +18,8 @@ const PokePage = ({ params: { id } }: { params: { id: number } }) => {
       return Number(id) + 1;
     }
   };
-
-  const arrowStyle =
-    "text-3xl font-bold hover:scale-105 hover:bg-slate-500 transition-all duration-300 h-[50px] flex items-center justify-center w-[50px] rounded-full bg-slate-700 text-white";
-  return (
-    <div className="flex items-center">
-      <Link href={`/pokemon/${getPageDown(id)}`} className={arrowStyle}>
-        {" "}
-        <p>{`<`}</p>
-      </Link>
-      {/* @ts-expect-error */}
-      <CardFull id={id} />
-      <Link href={`/pokemon/${getPageUp(id)}`} className={arrowStyle}>
-        <p>{`>`}</p>
-      </Link>
-    </div>
-  );
+  // @ts-expect-error
+  return <ColoredDiv id={id} children={<Card id={id} />} />;
 };
 
 export default PokePage;
