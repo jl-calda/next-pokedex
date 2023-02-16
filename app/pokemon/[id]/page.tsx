@@ -1,7 +1,4 @@
-import CardFull from "../../../components/CardFull";
 import Link from "next/link";
-import ColoredDiv from "../../../components/ColoredBg";
-import Card from "../../../components/Card";
 
 const PokePage = ({ params: { id } }: { params: { id: number } }) => {
   const getPageDown = (id: number) => {
@@ -19,7 +16,7 @@ const PokePage = ({ params: { id } }: { params: { id: number } }) => {
     }
   };
   // @ts-expect-error
-  return <ColoredDiv id={id} children={<Card id={id} />} />;
+  return <></>;
 };
 
 export default PokePage;

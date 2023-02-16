@@ -111,6 +111,17 @@ export const fetchOnePokemon = async (id: number) => {
     })
   );
 
+  const abilities = await Promise.all(
+    data.abilities.map((ability: any) => {
+      const name = ability.ability.name;
+      const isHidden = ability.is_hidden;
+      return {
+        name: name,
+        isHidden: isHidden,
+      };
+    })
+  );
+
   const stats = await Promise.all(
     data.stats.map((stat: any) => {
       const name = stat.stat.name;
@@ -146,8 +157,9 @@ export const fetchOnePokemon = async (id: number) => {
   return {
     id: data.id,
     name: data.name,
-    height: data.height,
-    weight: data.weight,
+    abilities: abilities,
+    height: data.height / 10,
+    weight: data.weight / 10,
     types: types,
     stats: stats,
     texts: texts[0]

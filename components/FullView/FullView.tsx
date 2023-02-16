@@ -1,13 +1,13 @@
 import Image from "next/image";
-import { fetchOnePokemon } from "../lib/pokemon";
+import { fetchOnePokemon } from "../../lib/pokemon";
 import crypto from "crypto";
 
-import Stat from "./Stat";
-import Type from "./Type";
+import Stat from "../Stat";
+import Type from "../Type";
 
-import PokemonImage from "./PokemonImage";
+import PokemonImage from "../PokemonImage";
 
-const CardFull = async ({ id }: { id: number }) => {
+const FullView = async ({ id }: { id: number }) => {
   const pokemon = await fetchOnePokemon(id);
 
   return (
@@ -50,4 +50,4 @@ const CardFull = async ({ id }: { id: number }) => {
   );
 };
 
-export default CardFull;
+export default FullView;

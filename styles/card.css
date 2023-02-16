@@ -22,14 +22,14 @@
   transition: all 0.33s ease;
   mix-blend-mode: color-dodge;
   opacity: 0.75;
+  border-radius: 6px;
 }
 
-/* .card:hover:after {
+.card:hover:after {
   filter: brightness(1) contrast(1);
   opacity: 1;
-} */
-
-/* 
+  transform: scale(1.05);
+}
 
 .card.active:before,
 .card:hover:before {
@@ -54,4 +54,4 @@
 .card:hover:after {
   animation: none;
   transition: none;
-} */
+}
