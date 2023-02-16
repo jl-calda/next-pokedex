@@ -1,15 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getColor } from "../../lib/getColor";
+
 import { fetchOnePokemon, makeArray } from "../../lib/pokemon";
 
 const page = () => {
   const array = makeArray(1, 1008);
   const [pokemons, setPokemons] = useState([]);
-  const [colors, setColors] = useState();
-  const [color, setColor] = useState();
-  const [color2, setColor2] = useState();
 
   useEffect(() => {
     const getPokemons = async () => {
@@ -25,20 +22,6 @@ const page = () => {
     };
     getPokemons();
   }, []);
-
-  // const handleGetColor = async () => {
-  //   console.log(pokemons);
-  //   const getColors = async () => {
-  //     const colors = pokemons.map(async (pokemon) => {
-  //       const front = getColor(pokemon.images.front);
-  //       const shiny = getColor(pokemon.images.shiny);
-  //       return { front, shiny };
-  //     });
-  //     const resolvedColors = await Promise.all(colors);
-  //     setColors(resolvedColors);
-  //   };
-  //   getColors();
-  // };
 
   const handleSendData = async () => {
     const response = await fetch("/api", {
@@ -63,3 +46,5 @@ const page = () => {
     </>
   );
 };
+
+export default page;

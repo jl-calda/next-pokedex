@@ -145,6 +145,19 @@ export const fetchOnePokemon = async (id: number) => {
       .map((text: any) => text.flavor_text)
   );
 
+  const sprites = await Promise.all(
+    [
+      data.sprites.front_default,
+      data.sprites.front_shiny,
+      data.sprites.back_default,
+      data.sprites.back_shiny,
+      data.sprites.back_female,
+      data.sprites.back_shiny_female,
+      data.sprites.front_female,
+      data.sprites.front_shiny_female,
+    ].filter((sprite) => sprite)
+  );
+
   const officialArtWork = await data.sprites.other["official-artwork"]
     .front_default;
 
@@ -162,6 +175,7 @@ export const fetchOnePokemon = async (id: number) => {
     weight: data.weight / 10,
     types: types,
     stats: stats,
+    sprites: sprites,
     texts: texts[0]
       ? texts[0]?.replace(/(\n)/gm, " ").replace(/(\f)/gm, " ")
       : "This pokemon is so rare that it hasn't been well documented aside from few photos.",

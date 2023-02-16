@@ -4,15 +4,16 @@ import crypto from "crypto";
 import TypePreview from "./TypePreview";
 import StatPreview from "./StatPreview";
 import { Pokemon } from "../../typings/pokemon";
+import { v4 as uuidv4 } from "uuid";
 
 const Card = ({ pokemon }: { pokemon: Pokemon }) => {
   return (
     <Link
       className="relative z-100 cursor-pointer"
-      href={`/pokemon/${pokemon.id}`}
+      href={`/learn/${pokemon.id}`}
     >
       <div
-        className="hover:scale-120 card p-2 min-w-full min-h-full flex flex-col space-y-1 border-2 border-slate-800 rounded-md"
+        className="hover:scale-120 card p-2 w-[230px] h-[370px] flex flex-col space-y-1 border-2 border-slate-800 rounded-md"
         style={{
           background: `linear-gradient(45deg, ${pokemon.colors.front},${
             pokemon.colors.shiny
@@ -47,7 +48,7 @@ const Card = ({ pokemon }: { pokemon: Pokemon }) => {
               pokemon.types.map(
                 (type: { type: string; color: string; icon: string }) => (
                   <TypePreview
-                    key={crypto.randomUUID()}
+                    key={uuidv4()}
                     type={type.type}
                     color={type.color}
                     icon={type.icon}
@@ -81,11 +82,7 @@ const Card = ({ pokemon }: { pokemon: Pokemon }) => {
               Basic Stats
             </p>
             {pokemon.stats.slice(0, 3).map((stat) => (
-              <StatPreview
-                name={stat.name}
-                value={stat.value}
-                key={crypto.randomUUID()}
-              />
+              <StatPreview name={stat.name} value={stat.value} key={uuidv4()} />
             ))}
           </div>
         </div>

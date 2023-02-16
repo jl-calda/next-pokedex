@@ -9,22 +9,22 @@ import { GiPreviousButton, GiNextButton } from "react-icons/gi";
 type PageProps = { params: { page: number } };
 
 const PokemonsPage = async ({ params: { page } }: PageProps) => {
-  const start = 24 * (page - 1);
-  const end = start + 24;
-  const filteredPokemons: Pokemon[] =
-    page == 43
-      ? pokemonData.pokemons.slice(24 * (page - 1))
-      : pokemonData.pokemons.slice(24 * (page - 1), end);
+  const start = 12 * (page - 1);
+  const end = start + 12;
+  const filteredPokemons =
+    page == 84
+      ? pokemonData.pokemons.slice(12 * (page - 1))
+      : pokemonData.pokemons.slice(12 * (page - 1), end);
 
   const getPageDown = (page: number) => {
     if (page == 1) {
-      return 42;
+      return 84;
     } else {
       return Number(page) - 1;
     }
   };
   const getPageUp = (page: number) => {
-    if (page == 42) {
+    if (page == 84) {
       return 1;
     } else {
       return Number(page) + 1;
