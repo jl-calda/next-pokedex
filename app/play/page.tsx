@@ -60,18 +60,18 @@ const Play = (): JSX.Element => {
   };
   return (
     <div
-      className="saturate-200 flex-1 h-full flex flex-col space-y-4 p-6 rounded-md border-slate-800 border-[1px]"
+      className="saturate-200 flex-1 flex flex-col space-y-2 p-4 rounded-md border-slate-800 border-[1px]"
       style={{
         background: `linear-gradient(45deg ,${answer?.colors.front} ,${answer?.types[0].color} , ${answer?.colors.shiny} , ${answer?.types[0].color})`,
       }}
     >
       {/* row 1 */}
 
-      <h1 className="py-4 rounded-md shadow-xl bg-black/30 flex items-center justify-center text-white font-bold tracking-wider">
+      <h1 className="py-2 rounded-md text-xl shadow-xl bg-black/30 flex items-center justify-center text-white font-bold tracking-wider">
         Who's that pokemon?
       </h1>
       {/* row 1 */}
-      <div className="card w-full flex-1 bg-white/30 rounded-md relative sm:w-[400px] md:w-[450px] lg:w-[500px] p-4">
+      <div className="card w-[300px] flex-1 bg-white/30 rounded-md relative sm:w-[400px] md:w-[450px] lg:w-[500px] p-4">
         {answer ? (
           <Image
             src={answer.images.front}
@@ -88,7 +88,7 @@ const Play = (): JSX.Element => {
       <div>{}</div>
       {/* row 2 */}
 
-      <div className="flex items-center justify-center h-[50px]">
+      <div className="flex items-center justify-center h-[30px]">
         <div
           className={`${answerDisplay} text-2xl bg-white/30 flex-1 flex items-center justify-center rounded-md py-2`}
         >
@@ -101,12 +101,12 @@ const Play = (): JSX.Element => {
         </div>
       </div>
 
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-2 place-content-center">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-[1px] gap-y-2 place-content-center">
         {choices &&
           choices.map((choice, index) => (
             <li key={uuidv4()}>
               <div
-                className="hover:bg-white/50 hover:text-slate-800 transition-all text-xs md:text-sm duration-500 ease-in-out rounded-full py-2 cursor-pointer uppercase flex items-center justify-center text-white font-bold bg-black/30 tracking-widest"
+                className="hover:bg-white/50 hover:text-slate-800 transition-all text-xs md:text-sm duration-500 ease-in-out rounded-full py-1 sm:py-2 cursor-pointer uppercase flex items-center justify-center text-white font-bold bg-black/30 tracking-widest"
                 onClick={handleCheckAnswer}
               >
                 {choice.name}
@@ -117,7 +117,7 @@ const Play = (): JSX.Element => {
 
       <div className="flex items-center justify-center">
         <button
-          className="py-4 rounded-full shadow-xl flex-1 bg-black/40 text-white font-bold tracking-wider hover:bg-white/50 hover:text-slate-800 transition-all"
+          className="py-1 rounded-full shadow-xl flex-1 bg-black/40 text-white font-bold tracking-wider hover:bg-white/50 hover:text-slate-800 transition-all"
           onClick={handleNewGame}
         >{`Play again?`}</button>
       </div>
