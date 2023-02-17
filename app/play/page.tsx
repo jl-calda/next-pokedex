@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+//import sound
+import { useEffect, useState, useMemo } from "react";
 import pokemonData from "../../data/pokemon.json";
 import uniqueRandom from "unique-random";
 import Image from "next/image";
@@ -12,8 +13,6 @@ import Link from "next/link";
 const Play = (): JSX.Element => {
   const [answer, setAnswer] = useState<Pokemon | null>(null);
   const [choices, setChoices] = useState<Pokemon[] | undefined>(undefined);
-  const [brightness, setBrightness] = useState<string>("brightness-100");
-  const [answerDisplay, setAnswerDisplay] = useState<string>("hidden");
 
   const handleNewGame = () => {
     setTimeout(() => {
@@ -31,33 +30,41 @@ const Play = (): JSX.Element => {
     setChoices(randomChoices.map((choice) => pokemonData.pokemons[choice]));
     console.log(choices);
     setAnswer(() => pokemonData.pokemons[answerIndex]);
-    hideImage();
+    document
+      .getElementById("pokemon-image")
+      ?.classList.remove("brightness-100");
+    document.getElementById("pokemon-image")?.classList.add("brightness-0");
+    document.getElementById("answer")?.classList.remove("flex");
+    document.getElementById("answer")?.classList.add("hidden");
   };
-
+  //   const beat = new Audio("/assets/sounds.mp3");
   useEffect(() => {
     newGame();
   }, []);
 
   const handleCheckAnswer = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    const value = (e.target as HTMLElement).innerText.toLowerCase();
+    const target = e.target as HTMLElement;
+    const value = target.innerText.toLowerCase();
+    // beat.play();
     if (value !== null && value === answer?.name.toLowerCase()) {
-      showImage();
+      console.log(e);
+      target.classList.remove("bg-black/30");
+      target.classList.add("bg-green-400");
+      document.getElementById("pokemon-image")?.classList.add("ease-in");
+      document.getElementById("pokemon-image")?.classList.add("brightness-100");
+      document
+        .getElementById("pokemon-image")
+        ?.classList.remove("brightness-0");
+      document.getElementById("answer")?.classList.add("flex");
+      document.getElementById("answer")?.classList.remove("hidden");
+      //   showImage();
     } else {
-      //add class to show wrong answer
-      e.currentTarget.classList.add("bg-red-500");
+      target.classList.remove("bg-black/30");
+      target.classList.add("bg-red-400");
     }
   };
 
-  const hideImage = () => {
-    setBrightness(() => "brightness-0");
-    setAnswerDisplay(() => "hidden");
-  };
-
-  const showImage = () => {
-    setBrightness(() => "brightness-100");
-    setAnswerDisplay(() => "flex");
-  };
   return (
     <div
       className="saturate-200 flex-1 flex flex-col space-y-2 p-4 rounded-md border-slate-800 border-[1px]"
@@ -76,8 +83,9 @@ const Play = (): JSX.Element => {
           <Image
             src={answer.images.front}
             alt={answer.name}
+            id="pokemon-image"
             fill
-            className={`${brightness} contrast-100 absolute saturate-150 cover shadow-lg`}
+            className={`brightness-0 contrast-100 absolute saturate-150 cover shadow-lg`}
           />
         ) : (
           <div>
@@ -85,12 +93,12 @@ const Play = (): JSX.Element => {
           </div>
         )}
       </div>
-      <div>{}</div>
       {/* row 2 */}
 
-      <div className="flex items-center justify-center h-[30px]">
+      <div className="flex items-center justify-center h-[50px]">
         <div
-          className={`${answerDisplay} text-2xl bg-white/30 flex-1 flex items-center justify-center rounded-md py-2`}
+          id="answer"
+          className={`hidden text-2xl bg-white/30 flex-1 items-center justify-center rounded-md py-2`}
         >
           <span>{`Its... `}</span>
           <Link href={`/learn/${answer?.id}`}>
@@ -100,24 +108,24 @@ const Play = (): JSX.Element => {
           </Link>
         </div>
       </div>
-
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-[1px] gap-y-2 place-content-center">
-        {choices &&
-          choices.map((choice, index) => (
-            <li key={uuidv4()}>
-              <div
-                className="hover:bg-white/50 hover:text-slate-800 transition-all text-xs md:text-sm duration-500 ease-in-out rounded-full py-1 sm:py-2 cursor-pointer uppercase flex items-center justify-center text-white font-bold bg-black/30 tracking-widest"
+      <div>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-[1px] gap-y-2 place-content-center">
+          {choices &&
+            choices.map((choice) => (
+              <li
+                key={uuidv4()}
+                className={`hover:scale-95  transition text-xs md:text-sm duration-500 ease-in-out rounded-full py-1 sm:py-2 cursor-pointer uppercase flex items-center justify-center text-white font-bold bg-black/30 tracking-widest`}
                 onClick={handleCheckAnswer}
               >
                 {choice.name}
-              </div>
-            </li>
-          ))}
-      </ul>
+              </li>
+            ))}
+        </ul>
+      </div>
 
       <div className="flex items-center justify-center">
         <button
-          className="py-1 rounded-full shadow-xl flex-1 bg-black/40 text-white font-bold tracking-wider hover:bg-white/50 hover:text-slate-800 transition-all"
+          className="py-4 rounded-full shadow-xl flex-1 bg-black/40 text-white font-bold tracking-wider hover:bg-white/50 hover:text-slate-800 transition-all"
           onClick={handleNewGame}
         >{`Play again?`}</button>
       </div>

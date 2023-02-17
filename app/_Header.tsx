@@ -10,7 +10,7 @@ import {
 
 const Header = () => {
   return (
-    <header className="h-full w-full shadow-lg mb-8 rounded-md px-8">
+    <header className="h-full w-full shadow-lg mb-4 rounded-md px-8">
       <div className="grid grid-cols-1 md:grid-cols-2">
         <Link href="/browse/1">
           <div className="flex space-x-2 items-center">
@@ -32,25 +32,25 @@ const Header = () => {
         <ul className="flex items-center justify-around py-2">
           <Link href={`/browse/1`}>
             <li className="flex md:flex-row flex-col space-x-2 items-center justify-center text-slate-700 hover:scale-105 hover:text-slate-500 transition-all duration-500">
-              <GiArchiveResearch className="text-4xl" />
+              <GiArchiveResearch className="text-2xl md:text-4xl" />
               <p className="md:text-sm text-xs font-thin">{`browse`}</p>
             </li>
           </Link>
           <Link href={`/search`}>
             <li className="flex md:flex-row flex-col space-x-2 items-center justify-center text-slate-700 hover:scale-105 hover:text-slate-500 transition-all duration-500">
-              <GiMagnifyingGlass className="text-4xl" />
+              <GiMagnifyingGlass className="text-2xl md:text-4xl" />
               <p className="md:text-sm text-xs font-thin">{`search`}</p>
             </li>
           </Link>
           <Link href={`/learn/1`}>
             <li className="flex md:flex-row flex-col space-x-2 items-center justify-center text-slate-700 hover:scale-105 hover:text-slate-500 transition-all duration-500">
-              <GiLightBulb className="text-4xl" />
+              <GiLightBulb className="text-2xl md:text-4xl" />
               <p className="md:text-sm text-xs font-thin">{`learn`}</p>
             </li>
           </Link>
           <Link href={`/play`}>
             <li className="flex md:flex-row flex-col space-x-2 items-center justify-center text-slate-700 hover:scale-105 hover:text-slate-500 transition-all duration-500">
-              <GiCardPlay className="text-4xl" />
+              <GiCardPlay className="text-2xl md:text-4xl" />
               <p className="md:text-sm text-xs font-thin">{`play`}</p>
             </li>
           </Link>
