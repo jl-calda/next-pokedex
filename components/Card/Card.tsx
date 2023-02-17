@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 const Card = ({ pokemon }: { pokemon: Pokemon }) => {
   return (
     <Link
-      className="relative z-100 cursor-pointer"
+      className="relative z-100 hover:scale-95 transition-all duration-300 hover:saturate-150 hover:brightness-110 hover:contrast-110 ease-linear hover:shadow-black hover:shadow-md cursor-pointer"
       href={`/learn/${pokemon.id}`}
     >
       <div

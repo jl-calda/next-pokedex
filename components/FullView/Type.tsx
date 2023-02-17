@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Type } from "../typings/pokemon";
+import { Type } from "../../typings/pokemon";
 
 const Type = ({ type }: { type: Type }) => {
   const color = type.color;

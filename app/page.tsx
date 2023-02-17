@@ -1,7 +1,4 @@
-import { fetchPokemonData } from "../lib/pokemon";
-
-const Homepage = async () => {
-  const pokemons = await fetchPokemonData();
+const Homepage = () => {
   return <div>Homepage</div>;
 };
 

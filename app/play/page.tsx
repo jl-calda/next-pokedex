@@ -1,121 +1,128 @@
-// "use client";
+"use client";
 
-// import { useEffect, useState } from "react";
-// import pokemonData from "../../data/pokemon.json";
-// import uniqueRandom from "unique-random";
-// import Image from "next/image";
-// import { Pokemon } from "../../typings/pokemon";
+import { useEffect, useState } from "react";
+import pokemonData from "../../data/pokemon.json";
+import uniqueRandom from "unique-random";
+import Image from "next/image";
+import { Pokemon } from "../../typings/pokemon";
+import { getColor } from "../../lib/getColor";
+import { v4 as uuidv4 } from "uuid";
+import Link from "next/link";
 
-// const Play = () => {
-//   const [answer, setAnswer] = useState<Pokemon | undefined>(undefined);
-//   const [choices, setChoices] = useState<Pokemon[] | undefined>(undefined);
-//   const [playAgain, setPlayAgain] = useState<boolean>(false);
+const Play = (): JSX.Element => {
+  const [answer, setAnswer] = useState<Pokemon | null>(null);
+  const [choices, setChoices] = useState<Pokemon[] | undefined>(undefined);
+  const [brightness, setBrightness] = useState<string>("brightness-100");
+  const [answerDisplay, setAnswerDisplay] = useState<string>("hidden");
 
-//   useEffect(() => {
-//     handleNewGame();
-//   }, []);
+  const handleNewGame = () => {
+    setTimeout(() => {
+      newGame();
+    }, 1500);
+  };
 
-//   const handleCheckAnswer = (e) => {
-//     e.preventDefault();
-//     const value = e.target.innerText.toLowerCase();
-//     console.log(value);
-//     if (value === answer.name) {
-//       console.log("correct");
-//       showImage();
-//       handlePlayAgain();
-//       // handleNewGame();
-//     }
-//   };
+  const newGame = () => {
+    const random = uniqueRandom(0, pokemonData.pokemons.length - 1);
+    const randomChoices = [random(), random(), random(), random()];
+    const answerRandom = uniqueRandom(0, randomChoices.length - 1);
 
-//   const handlePlayAgain = () => {
-//     //show modal with play again button
-//     //if play again is clicked, set playAgain to true
-//     //if playAgain is true, run handleNewGame
-//     //alert with yes and no
+    const answerIndex = randomChoices[answerRandom()];
 
-//     const answer = window.confirm("Play again?");
-//     if (answer) {
-//       handleNewGame();
-//     } else {
-//       console.log("no");
-//     }
-//   };
+    setChoices(randomChoices.map((choice) => pokemonData.pokemons[choice]));
+    console.log(choices);
+    setAnswer(() => pokemonData.pokemons[answerIndex]);
+    hideImage();
+  };
 
-//   const hideImage = () => {
-//     const img = document.getElementById(answer.id);
-//     img?.classList.remove("brightness-100");
-//     img?.classList.add("brightness-0");
-//   };
+  useEffect(() => {
+    newGame();
+  }, []);
 
-//   const showImage = () => {
-//     const img = document.getElementById(answer.id);
-//     img.classList.remove("brightness-0");
-//     img.classList.add("brightness-100");
-//   };
+  const handleCheckAnswer = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    const value = (e.target as HTMLElement).innerText.toLowerCase();
+    if (value !== null && value === answer?.name.toLowerCase()) {
+      showImage();
+    } else {
+      //add class to show wrong answer
+      e.currentTarget.classList.add("bg-red-500");
+    }
+  };
 
-//   const handleNewGame = () => {
-//     setTimeout(() => {
-//       const random = uniqueRandom(0, pokemonData.pokemons.length - 1);
-//       const randomChoices = [random(), random(), random(), random()];
-//       const answerRandom = uniqueRandom(0, randomChoices.length - 1);
+  const hideImage = () => {
+    setBrightness(() => "brightness-0");
+    setAnswerDisplay(() => "hidden");
+  };
 
-//       const answerIndex = randomChoices[answerRandom()];
+  const showImage = () => {
+    setBrightness(() => "brightness-100");
+    setAnswerDisplay(() => "flex");
+  };
+  return (
+    <div
+      className="saturate-200 flex-1 h-full flex flex-col space-y-4 p-6 rounded-md border-slate-800 border-[1px]"
+      style={{
+        background: `linear-gradient(45deg ,${answer?.colors.front} ,${answer?.types[0].color} , ${answer?.colors.shiny} , ${answer?.types[0].color})`,
+      }}
+    >
+      {/* row 1 */}
 
-//       console.log("answerIndex", answerIndex);
-//       setChoices(randomChoices.map((choice) => pokemonData.pokemons[choice]));
-//       console.log(choices);
-//       setAnswer(() => pokemonData.pokemons[answerIndex]);
-//       hideImage();
-//     }, 1500);
-//   };
+      <h1 className="py-4 rounded-md shadow-xl bg-black/30 flex items-center justify-center text-white font-bold tracking-wider">
+        Who's that pokemon?
+      </h1>
+      {/* row 1 */}
+      <div className="card w-full flex-1 bg-white/30 rounded-md relative sm:w-[400px] md:w-[450px] lg:w-[500px] p-4">
+        {answer ? (
+          <Image
+            src={answer.images.front}
+            alt={answer.name}
+            fill
+            className={`${brightness} contrast-100 absolute saturate-150 cover shadow-lg`}
+          />
+        ) : (
+          <div>
+            <p>Loading...</p>
+          </div>
+        )}
+      </div>
+      <div>{}</div>
+      {/* row 2 */}
 
-//   return (
-//     <div className="flex-1 h-full flex flex-col">
-//       {/* row 1 */}
-//       <div className="relative">
-//         <Image
-//           src="/whos-that.png"
-//           alt="Who's that pokemon"
-//           width={400}
-//           height={400}
-//           className="relative"
-//         />
-//         {answer && (
-//           // console.log(
-//           //   answer
-//           // )
-//           <Image
-//             src={answer.images.front}
-//             id={answer.id}
-//             alt={answer.name}
-//             width={200}
-//             height={200}
-//             className="brightness-0 contrast-100 absolute top-1/2 left-1/3 transform -translate-x-1/2 -translate-y-1/2 saturate-150"
-//           />
-//         )}
-//       </div>
-//       <div>
-//         {}
-//       </div>
-//       {/* row 2 */}
+      <div className="flex items-center justify-center h-[50px]">
+        <div
+          className={`${answerDisplay} text-2xl bg-white/30 flex-1 flex items-center justify-center rounded-md py-2`}
+        >
+          <span>{`Its... `}</span>
+          <Link href={`/learn/${answer?.id}`}>
+            <span className="font-bold hover:text-slate-700">
+              {` ${answer?.name}!!!`}
+            </span>
+          </Link>
+        </div>
+      </div>
 
-//       <ul className="grid grid-cols-2 space-x-2 space-y-2 place-content-center">
-//         {choices &&
-//           choices.map((choice, index) => (
-//             <li
-//               className="rounded-full uppercase text-white font-extrabold tracking-widest"
-//               style={{
-//                 background: `linear-gradient(135deg, ${choice.colors.front},${choice.colors.shiny},${choice.types[0].color})`,
-//               }}
-//               key={index}
-//               onClick={handleCheckAnswer}
-//             >
-//               {choice.name}
-//             </li>
-//           ))}
-//       </ul>
-//     </div>
-//   );
-// };
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-2 place-content-center">
+        {choices &&
+          choices.map((choice, index) => (
+            <li key={uuidv4()}>
+              <div
+                className="hover:bg-white/50 hover:text-slate-800 transition-all text-xs md:text-sm duration-500 ease-in-out rounded-full py-2 cursor-pointer uppercase flex items-center justify-center text-white font-bold bg-black/30 tracking-widest"
+                onClick={handleCheckAnswer}
+              >
+                {choice.name}
+              </div>
+            </li>
+          ))}
+      </ul>
 
-// export default Play;
+      <div className="flex items-center justify-center">
+        <button
+          className="py-4 rounded-full shadow-xl flex-1 bg-black/40 text-white font-bold tracking-wider hover:bg-white/50 hover:text-slate-800 transition-all"
+          onClick={handleNewGame}
+        >{`Play again?`}</button>
+      </div>
+    </div>
+  );
+};
+
+export default Play;

@@ -6,7 +6,7 @@ import {
   GiLayeredArmor,
   GiSonicShoes,
 } from "react-icons/gi";
-import { Stat } from "../typings/pokemon";
+import { Stat } from "../../typings/pokemon";
 
 const Stat = ({ stat }: { stat: Stat }) => {
   const name = stat.name;

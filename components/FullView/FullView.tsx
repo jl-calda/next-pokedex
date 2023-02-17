@@ -1,14 +1,14 @@
 import Image from "next/image";
 import React from "react";
-import { Pokemon } from "../../typings/pokemon";
-import Stat from "../Stat";
-import Type from "../Type";
+import { Ability, Pokemon } from "../../typings/pokemon";
+import Stat from "./Stat";
+import Type from "./Type";
 import { v4 as uuidv4 } from "uuid";
 
 const FullView = ({ pokemon }: { pokemon: Pokemon }) => {
   return (
     <div
-      className="grid grid-cols-1 sm:grid-cols-2 p-4 rounded-md border-[1px] border-slate-800 gap-x-4 gap-y-4"
+      className="saturate-200 brightness-100 contrast-90 grid grid-cols-1 sm:grid-cols-2 p-4 rounded-md border-[1px] border-slate-800 gap-x-4 gap-y-4"
       style={{
         background: `linear-gradient(40deg,${pokemon.colors.front},${
           pokemon.colors.shiny
@@ -62,8 +62,11 @@ const FullView = ({ pokemon }: { pokemon: Pokemon }) => {
         </div>
         <p className="text-slate-700 text-sm md:text-lg flex justify-end items-center">{`Ht: ${pokemon.height} m | Wt: ${pokemon.weight} kg`}</p>
         <div className="flex space-x-4 items-center justify-start flex-wrap space-y-2">
-          {pokemon.abilities.map((ability) => (
-            <div className="flex space-x-2 px-2 md:px-4 md:text-sm font-bold text-xs uppercase py-2 bg-black/60 text-white rounded-full">
+          {pokemon.abilities.map((ability: Ability) => (
+            <div
+              key={uuidv4()}
+              className="flex space-x-2 space-y-2 px-2 md:px-4 md:text-sm font-bold text-xs uppercase py-2 bg-black/60 text-white rounded-full"
+            >
               <span>{ability.name}</span>
               <span>{ability.isHidden ? "(hidden)" : ""}</span>
             </div>
