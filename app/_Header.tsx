@@ -1,4 +1,3 @@
-import SearchBar from "./_SearchBar";
 import Link from "next/link";
 import Image from "next/image";
 import {

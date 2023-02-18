@@ -1,7 +1,6 @@
 import Footer from "./_Footer";
 import Header from "./_Header";
 import "../styles/globals.css";
-import "../styles/card.css";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

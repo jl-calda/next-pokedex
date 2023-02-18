@@ -1,6 +1,4 @@
-import { FastAverageColor } from "fast-average-color";
 import { getColor } from "./getColor";
-const fac = new FastAverageColor();
 
 type Types =
   | "normal"
