@@ -16,7 +16,7 @@ const FullView = ({ pokemon }: { pokemon: Pokemon }) => {
       }}
     >
       <div className="flex relative flex-col space-y-4">
-        <div className="card flex space-x-[-100px] md:space-x-[-120px] lg:space-x-[-140px] items-center justify-center bg-white/30 rounded-md p-4">
+        <div className="flex space-x-[-100px] md:space-x-[-120px] lg:space-x-[-140px] items-center justify-center bg-white/30 rounded-md p-4">
           <div className="flex flex-col justify-center items-center">
             <Image
               src={pokemon.images.front}

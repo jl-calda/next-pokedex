@@ -13,7 +13,7 @@ const Card = ({ pokemon }: { pokemon: Pokemon }) => {
       href={`/learn/${pokemon.id}`}
     >
       <div
-        className="hover:scale-120 card p-2 w-[230px] h-[370px] flex flex-col space-y-1 border-2 border-slate-800 rounded-md"
+        className="hover:scale-120 p-2 w-[230px] h-[370px] flex flex-col space-y-1 border-2 border-slate-800 rounded-md"
         style={{
           background: `linear-gradient(45deg, ${pokemon.colors.front},${
             pokemon.colors.shiny

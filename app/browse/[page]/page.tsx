@@ -35,7 +35,7 @@ const PokemonsPage = async ({ params: { page } }: PageProps) => {
     <div className="flex items-center justify-center">
       <Link href={`/browse/${getPageDown(page)}`}>
         <div className="text-3xl font-bold px-3 py-2">
-          <GiPreviousButton />
+          <GiPreviousButton className=" hover:text-slate-600 hover:scale-105 transition-all duration-500" />
         </div>
       </Link>
 
@@ -46,7 +46,7 @@ const PokemonsPage = async ({ params: { page } }: PageProps) => {
       </div>
       <Link href={`/browse/${getPageUp(page)}`}>
         <div className="text-3xl font-bold px-3 py-2">
-          <GiNextButton />
+          <GiNextButton className=" hover:text-slate-600 hover:scale-105 transition-all duration-500" />
         </div>
       </Link>
     </div>

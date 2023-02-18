@@ -67,7 +67,7 @@ const Play = (): JSX.Element => {
 
   return (
     <div
-      className="saturate-200 flex-1 flex flex-col space-y-2 p-4 rounded-md border-slate-800 border-[1px]"
+      className="shadow-lg saturate-200 flex-1 flex flex-col space-y-2 p-4 rounded-md border-slate-800 border-[1px]"
       style={{
         background: `linear-gradient(45deg ,${answer?.colors.front} ,${answer?.types[0].color} , ${answer?.colors.shiny} , ${answer?.types[0].color})`,
       }}
@@ -78,7 +78,7 @@ const Play = (): JSX.Element => {
         Who's that pokemon?
       </h1>
       {/* row 1 */}
-      <div className="card w-[300px] flex-1 bg-white/30 rounded-md relative sm:w-[400px] md:w-[450px] lg:w-[500px] p-4">
+      <div className="w-[300px] flex-1 bg-white/30 rounded-md relative sm:w-[400px] md:w-[450px] lg:w-[500px] p-4">
         {answer ? (
           <Image
             src={answer.images.front}
